@@ -46,6 +46,10 @@ f.タグ削除 = (jpgパス, タグ配列) => {
   execSync(コマンド)
 }
 
+f.座標指定 = (jpgパス, lat, lng) => {
+  execSync(`exiftool -overwrite_original -gpslatitude=${lat} -gpslongitude=${lng} "${jpgパス}"`)
+}
+
 module.exports = {
   ...f,
 }
