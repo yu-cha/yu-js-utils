@@ -47,10 +47,21 @@ f.タグ削除 = (jpgパス, タグ配列) => {
 }
 
 f.座標指定 = (jpgパス, lat, lng) => {
-  execSync(`exiftool -overwrite_original -gpslatitude=${lat} -gpslongitude=${lng} "${jpgパス}"`)
+  const latRef = 0 <= lat ? 'North' : 'South'
+  const lngRef = 0 <= lng ? 'East' : 'West'
+  execSync(
+    [
+      'exiftool',
+      '-overwrite_original',
+      `-gpslatitude=${lat}`,
+      `-gpslatituderef=${latRef}`,
+      `-gpslongitude=${lng}`,
+      `-gpslongituderef=${lngRef}`,
+      `"${jpgパス}"`,
+    ].join(' ')
+  )
 }
 
 module.exports = {
   ...f,
 }
-
